@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,6 +21,7 @@ class SpringJenkinsIntegrationApplicationTests {
 		logger.info("Test Case executing...");
 		logger.info("Test Case executing second log statement...");
 		assertEquals(5 + 2, 7);
+		assertNotEquals(5+7, 7+4);
 	}
 
 }
