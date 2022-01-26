@@ -8,10 +8,11 @@ node {
 
     stage('Build image') {
         /* This builds the actual image */
-        app = docker.build("")
+        app = docker.build("avdheshgupta106/spring-jenkins-integration.jar")
     }
 
     stage('Test image') {
+
         app.inside {
             echo "Tests passed"
         }
