@@ -3,18 +3,15 @@ node {
 
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace */
-
         checkout scm
     }
 
     stage('Build image') {
         /* This builds the actual image */
-
-        app = docker.build("avdheshgupta106/spring-jenkins-integration")
+        app = docker.build("spring-jenkins-integration")
     }
 
     stage('Test image') {
-
         app.inside {
             echo "Tests passed"
         }
