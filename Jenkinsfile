@@ -11,7 +11,8 @@ pipeline {
                 git 'https://github.com/AVDHESHGUPTA106/spring-jenkins-integration.git' 
             }
         } 
-        stage('Building our image') { 
+        stage('Building our image') {
+            when { branch 'main' }
             steps { 
                 script { 
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
