@@ -8,7 +8,7 @@ pipeline {
     stages { 
         stage('Cloning our Git') {
             steps {
-                checkout scm
+                git 'https://github.com/AVDHESHGUPTA106/spring-jenkins-integration.git/main'
             }
         } 
         stage('Building our image') {
