@@ -7,7 +7,7 @@ pipeline {
     agent any 
     stages { 
         stage('Cloning our Git') {
-            when { branch 'master' }
+            when { branch 'main' }
             steps { 
                 git 'https://github.com/AVDHESHGUPTA106/spring-jenkins-integration.git' 
             }
