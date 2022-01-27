@@ -7,14 +7,13 @@ pipeline {
     agent any 
     stages { 
         stage('Cloning our Git') {
-            when { branch 'main' }
-            steps { 
-                git 'https://github.com/AVDHESHGUPTA106/spring-jenkins-integration.git' 
+            steps {
+                git 'https://github.com/AVDHESHGUPTA106/spring-jenkins-integration.git'
+                branch 'main'
             }
         } 
         stage('Building our image') {
-            when { branch 'main' }
-            steps { 
+            steps {
                 script { 
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
                 }
