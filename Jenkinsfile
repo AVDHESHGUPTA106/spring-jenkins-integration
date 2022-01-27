@@ -1,6 +1,6 @@
 pipeline { 
     environment { 
-        registry = "avdheshgupta106/spring-jenkins-integration" 
+        registry = "avdheshgupta106/springjenkinsintegration"
         registryCredential = 'docker-hub' 
         dockerImage = '' 
     }
