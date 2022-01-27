@@ -1,31 +1,36 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-        checkout scm
+pipeline { 
+    environment { 
+        registry = "avdheshgupta106/spring-jenkins-integration" 
+        registryCredential = 'docker-hub' 
+        dockerImage = '' 
     }
-
-    stage('Build image') {
-        /* This builds the actual image */
-        app = docker.build("avdheshgupta106/spring-jenkins-integration")
-    }
-
-    stage('Test image') {
-
-        app.inside {
-            echo "Tests passed"
-        }
-    }
-
-    stage('Push image') {
-        /*
-			You would need to first register with DockerHub before you can push images to your account
-		*/
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+    agent any 
+    stages { 
+        stage('Cloning our Git') { 
+            steps { 
+                git 'https://github.com/AVDHESHGUPTA106/spring-jenkins-integration.git' 
             }
-                echo "Trying to Push Docker Build to DockerHub"
+        } 
+        stage('Building our image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
+        }
+        stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        } 
+        stage('Cleaning up') { 
+            steps { 
+                sh "docker rmi $registry:$BUILD_NUMBER" 
+            }
+        } 
     }
 }
